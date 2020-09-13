@@ -20,18 +20,18 @@ public class AirField {
 			while ((line = bufIn.readLine()) != null) {
 				String[] fields = line.split(",");
 				if (fields[0].contentEquals("Cargo")) {
-					Jet jet = new CargoPlane(fields[0], Double.parseDouble(fields[1]), Integer.parseInt(fields[2]),
-							Long.parseLong(fields[3]));
+					Jet jet = new CargoPlane(fields[1], Double.parseDouble(fields[2]), Integer.parseInt(fields[3]),
+							Long.parseLong(fields[4]));
 					jets.add(jet);
 
 				} else if (fields[0].contentEquals("Fighter")) {
-					Jet jet = new FighterPlane(fields[0], Double.parseDouble(fields[1]), Integer.parseInt(fields[2]),
-							Long.parseLong(fields[3]));
+					Jet jet = new FighterPlane(fields[1], Double.parseDouble(fields[2]), Integer.parseInt(fields[3]),
+							Long.parseLong(fields[4]));
 					jets.add(jet);
 
 				} else if (fields[0].contentEquals("Jet")) {
-					Jet jet = new JetImpl(fields[0], Double.parseDouble(fields[1]), Integer.parseInt(fields[2]),
-							Long.parseLong(fields[3]));
+					Jet jet = new JetImpl(fields[1], Double.parseDouble(fields[2]), Integer.parseInt(fields[3]),
+							Long.parseLong(fields[4]));
 					jets.add(jet);
 
 				}
@@ -52,16 +52,16 @@ public class AirField {
 		long price;
 		System.out.println("Please enter the details of your new Jet");
 		System.out.println("Type of Jet to add: Cargo, Fighter, Jet");
-		jetType = kb.next();
+		jetType = kb.nextLine();
 		System.out.println("Model: ");
-		model = kb.next();
+		model = kb.nextLine();
 		System.out.println("Speed: ");
 		speed = kb.nextDouble();
 		System.out.println("Range: ");
 		range = kb.nextInt();
 		System.out.println("Price: ");
 		price = kb.nextLong();
-		System.out.println("Jet Added:");
+		System.out.println("Jet Added!");
 
 			if (jetType.contentEquals("Cargo")) {
 				Jet jet = new CargoPlane(model, speed, range, price);
@@ -92,7 +92,6 @@ public class AirField {
 			if (jet != null) {
 				if (jet instanceof CargoPlane) {
 					System.out.println("The " + jet.getModel() + " loads its cargo and prepares for takeoff!");
-					System.out.println("");
 				}
 			}
 		}
@@ -103,7 +102,6 @@ public class AirField {
 			if (jet != null) {
 				if (jet instanceof FighterPlane) {
 					System.out.println("The " + jet.getModel() + " unloads its guns on the unsuspecting enemy");
-					System.out.println("");
 				}
 			}
 		}
@@ -112,9 +110,8 @@ public class AirField {
 	public void flyJets() {
 		for (Jet jet : jets) {
 			if (jet != null) {
-				System.out.println("Flying jet " + jet.getModel() + " which travel up to " + jet.getSpeed()
-						+ "MPH, or Mach " + jet.getSpeedInMach() + " at a range of " + jet.getRange() + ".");
-				System.out.println("");
+				System.out.println("Flying " + jet.getModel() + " which can travel up to " + jet.getSpeed()
+						+ " MPH, or Mach " + jet.getSpeedInMach() + " at a range of " + jet.getRange() + "!");
 			}
 		}
 	}
