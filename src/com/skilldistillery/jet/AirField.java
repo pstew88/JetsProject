@@ -9,26 +9,27 @@ import java.util.Scanner;
 
 public class AirField {
 	List<Jet> jets = new ArrayList<>();
-
 	Scanner kb = new Scanner(System.in);
-	
+	AirField(){
+		createJet();
+	}
+
 	public String createJet() {
-		System.out.println("test");
-		try (BufferedReader bufIn = new BufferedReader(new FileReader("Jets"))) {
+		try (BufferedReader bufIn = new BufferedReader(new FileReader("jlist"))) {
 			String line;
 			while ((line = bufIn.readLine()) != null) {
 				String[] fields = line.split(",");
-				if (fields[0] == "Cargo") {
+				if (fields[0].contentEquals("Cargo")) {
 					Jet jet = new CargoPlane(fields[0], Double.parseDouble(fields[1]), Integer.parseInt(fields[2]),
 							Long.parseLong(fields[3]));
 					jets.add(jet);
 
-				} else if (fields[0] == "Fighter") {
+				} else if (fields[0].contentEquals("Fighter")) {
 					Jet jet = new FighterPlane(fields[0], Double.parseDouble(fields[1]), Integer.parseInt(fields[2]),
 							Long.parseLong(fields[3]));
 					jets.add(jet);
 
-				} else if (fields[0] == "Jet") {
+				} else if (fields[0].contentEquals("Jet")) {
 					Jet jet = new JetImpl(fields[0], Double.parseDouble(fields[1]), Integer.parseInt(fields[2]),
 							Long.parseLong(fields[3]));
 					jets.add(jet);
@@ -60,29 +61,28 @@ public class AirField {
 		range = kb.nextInt();
 		System.out.println("Price: ");
 		price = kb.nextLong();
+		System.out.println("Jet Added:");
 
-		while (jets != null) {
-			if (jetType == "Cargo") {
+			if (jetType.contentEquals("Cargo")) {
 				Jet jet = new CargoPlane(model, speed, range, price);
 				jets.add(jet);
 
-			} else if (jetType == "Fighter") {
+			} else if (jetType.contentEquals("Fighter")) {
 				Jet jet = new FighterPlane(model, speed, range, price);
 				jets.add(jet);
 
-			} else if (jetType == "Jet") {
+			} else if (jetType.contentEquals("Jet")) {
 				Jet jet = new JetImpl(model, speed, range, price);
 				jets.add(jet);
 			}
 		}
-	}
+	
 
 	public void rmvJet() {
 		int rmv;
 		System.out.println("Please enter the number of the plane would you like to remove?");
 		rmv = kb.nextInt();
-		System.out.println("Plane Removed");
-		System.out.println(jets.remove(rmv).getModel());
+		System.out.println("Plane Removed Model: "+jets.remove(rmv-1).getModel());
 		System.out.println("");
 
 	}
@@ -127,8 +127,8 @@ public class AirField {
 		}
 	}
 
-	public double listFastest() {
-		double fastest = 0.0;
+	public void listFastest() {
+		double fastest = 0;
 		for (Jet jet : jets) {
 			if (jet != null) {
 				if (jet.getSpeed() > fastest) {
@@ -158,13 +158,13 @@ public class AirField {
 
 				if (fastest == jet.getSpeed()) {
 					System.out.println(jet.toString());
+					break;
 				}
 			}
 		}
-		return listFastest();
 	}
 
-	public double listDistance() {
+	public void listDistance() {
 		double fastest = 0.0;
 		for (Jet jet : jets) {
 			if (jet != null) {
@@ -185,9 +185,9 @@ public class AirField {
 			}
 		}
 		if (ties > 1) {
-			System.out.println(ties + " Jets tie for the fasest planes:");
+			System.out.println(ties + " Jets tie for the furthest distance:");
 		} else {
-			System.out.println("The fastest jet is:");
+			System.out.println("The jet is with the greatest distance is:");
 		}
 
 		for (Jet jet : jets) {
@@ -198,6 +198,5 @@ public class AirField {
 				}
 			}
 		}
-		return listDistance();
 	}
 }
