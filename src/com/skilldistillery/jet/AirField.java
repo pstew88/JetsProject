@@ -52,7 +52,7 @@ public class AirField {
 		long price;
 		System.out.println("Please enter the details of your new Jet");
 		System.out.println("Type of Jet to add: Cargo, Fighter, Jet");
-		jetType = kb.nextLine();
+		jetType = kb.nextLine().toLowerCase();
 		System.out.println("Model: ");
 		model = kb.nextLine();
 		System.out.println("Speed: ");
@@ -63,15 +63,15 @@ public class AirField {
 		price = kb.nextLong();
 		System.out.println("Jet Added!");
 
-			if (jetType.contentEquals("Cargo")) {
+			if (jetType.contentEquals("cargo")) {
 				Jet jet = new CargoPlane(model, speed, range, price);
 				jets.add(jet);
 
-			} else if (jetType.contentEquals("Fighter")) {
+			} else if (jetType.contentEquals("fighter")) {
 				Jet jet = new FighterPlane(model, speed, range, price);
 				jets.add(jet);
 
-			} else if (jetType.contentEquals("Jet")) {
+			} else if (jetType.contentEquals("jet")) {
 				Jet jet = new JetImpl(model, speed, range, price);
 				jets.add(jet);
 			}
