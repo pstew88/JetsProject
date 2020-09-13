@@ -9,11 +9,12 @@ import java.util.Scanner;
 
 public class AirField {
 	List<Jet> jets = new ArrayList<>();
+
 	Scanner kb = new Scanner(System.in);
-
+	
 	public String createJet() {
-
-		try (BufferedReader bufIn = new BufferedReader(new FileReader("Jets.txt"))) {
+		System.out.println("test");
+		try (BufferedReader bufIn = new BufferedReader(new FileReader("Jets"))) {
 			String line;
 			while ((line = bufIn.readLine()) != null) {
 				String[] fields = line.split(",");
@@ -72,17 +73,131 @@ public class AirField {
 			} else if (jetType == "Jet") {
 				Jet jet = new JetImpl(model, speed, range, price);
 				jets.add(jet);
-
 			}
-
 		}
 	}
 
+	public void rmvJet() {
+		int rmv;
+		System.out.println("Please enter the number of the plane would you like to remove?");
+		rmv = kb.nextInt();
+		System.out.println("Plane Removed");
+		System.out.println(jets.remove(rmv).getModel());
+		System.out.println("");
 
-//	public String rmvJet() 
-//	{
-//		
-//	}
+	}
+
+	public void loadCargo() {
+		for (Jet jet : jets) {
+			if (jet != null) {
+				if (jet instanceof CargoPlane) {
+					System.out.println("The " + jet.getModel() + " loads its cargo and prepares for takeoff!");
+					System.out.println("");
+				}
+			}
+		}
+	}
+
+	public void fight() {
+		for (Jet jet : jets) {
+			if (jet != null) {
+				if (jet instanceof FighterPlane) {
+					System.out.println("The " + jet.getModel() + " unloads its guns on the unsuspecting enemy");
+					System.out.println("");
+				}
+			}
+		}
+	}
+
+	public void flyJets() {
+		for (Jet jet : jets) {
+			if (jet != null) {
+				System.out.println("Flying jet " + jet.getModel() + " which travel up to " + jet.getSpeed()
+						+ "MPH, or Mach " + jet.getSpeedInMach() + " at a range of " + jet.getRange() + ".");
+				System.out.println("");
+			}
+		}
+	}
+
+	public void listJets() {
+		for (Jet jet : jets) {
+			if (jet != null) {
+				System.out.println(jet.toString());
+			}
+		}
+	}
+
+	public double listFastest() {
+		double fastest = 0.0;
+		for (Jet jet : jets) {
+			if (jet != null) {
+				if (jet.getSpeed() > fastest) {
+
+					fastest = jet.getSpeed();
+				}
+			}
+		}
+
+		int ties = 0;
+		for (Jet jet : jets) {
+			if (jet != null) {
+
+				if (fastest == jet.getSpeed()) {
+					ties++;
+				}
+			}
+		}
+		if (ties > 1) {
+			System.out.println(ties + " Jets tie for the fasest planes:");
+		} else {
+			System.out.println("The fastest jet is:");
+		}
+
+		for (Jet jet : jets) {
+			if (jet != null) {
+
+				if (fastest == jet.getSpeed()) {
+					System.out.println(jet.toString());
+				}
+			}
+		}
+		return listFastest();
+	}
+
+	public double listDistance() {
+		double fastest = 0.0;
+		for (Jet jet : jets) {
+			if (jet != null) {
+				if (jet.getRange() > fastest) {
+
+					fastest = jet.getRange();
+				}
+			}
+		}
+
+		int ties = 0;
+		for (Jet jet : jets) {
+			if (jet != null) {
+
+				if (fastest == jet.getRange()) {
+					ties++;
+				}
+			}
+		}
+		if (ties > 1) {
+			System.out.println(ties + " Jets tie for the fasest planes:");
+		} else {
+			System.out.println("The fastest jet is:");
+		}
+
+		for (Jet jet : jets) {
+			if (jet != null) {
+
+				if (fastest == jet.getRange()) {
+					System.out.println(jet.toString());
+				}
+			}
+		}
+		return listDistance();
+	}
 }
-
-//}

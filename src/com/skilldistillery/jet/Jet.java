@@ -42,6 +42,7 @@ public abstract class Jet {
 	flyingDistance=(int)speed/range;
 	System.out.println("The "+model+"can fly for a distance of "+flyingDistance);
 	}
+	
 	public Jet(String model, double speed, int range, long price) {
 		super();
 		this.model = model;
